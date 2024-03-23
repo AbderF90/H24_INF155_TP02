@@ -1,0 +1,41 @@
+13 UEFA
+	Allemagne		GER		1650	E
+	Angleterre		ENG		1728	B
+	Belgique		BEL		1816	F
+	Croatie			CRO 		1645	F
+	Danemark		DEN		1666	D
+	Espagne			ESP		1715	E
+	France			FRA		1759	D
+	Pays-Bas		NED		1694	A	
+	Pays-de-Galles		WAL		1569	B
+	Pologne			POL		1548	C
+	Portugal		POR		1676	H
+	Serbie			SRB		1563	G
+	Suisse			SUI		1635	G	
+
+5 CAF 	
+	Cameroun		CMR		1471	G
+	Ghana			GHA		1393	H
+	Maroc			MAR		1563	F
+	Sénégal			SEN		1584	A
+	Tunisie			TUN		1507	D
+	
+4 CONCACAF
+	Canada			CAN		1475	F
+	Costa-Rica		CRC		1503	E
+	États-Unis		USA		1627	B
+	Mexique			MEX		1644	C
+ 
+4 CONMEBOL
+	Argentine		ARG		1773	C
+	Brésil			BRA		1816	G
+	Équateur		ECU		1464	A
+	Uruguay			URU		1638	H
+	
+6 AFC 	
+	Arabie-saoudite		SAU		1437	C
+	Australie		AUS		1488	D
+	Corée-du-Sud		KOR		1530	H
+	Iran			IRN		1564	B
+	Japon			JPN		1559	E
+	Qatar			QAT		1439	A
