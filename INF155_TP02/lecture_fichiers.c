@@ -1,3 +1,80 @@
+#include "lecture_fichiers.h"
+
+
+//Fonction lire_equipes qui permet de lire le fichier equipes2022.txt
+void lire_equipes(const char* nom_fichier, t_wcup* wc){
+
+    FILE *fichier; //déclaration d'un pointeur "fichier"
+    //ouverture du fichier en mode lecture
+    fichier = fopen(nom_fichier, "r");
+
+    //condition si le fichier n'existe pas
+    if (!fichier) {
+        //message d'erreur
+        printf("Erreur! le fichier ne peut s'ouvrir.\n");
+        return;
+    }
+
+    char tab[200]; //déclaration d'un tableau pour stocker les lignes lues du fichier
+    int totalEqpLues = 0; //déclaration d'un compteur pour le nombre d'équipes total lues
+
+    //boucle pour lire les lignes du fichier
+    while (fgets(tab, 200, fichier)) {
+
+        int nb_equipes; //stockage nombre d'équipes à lire pour chaque confédération
+        char confederation[50]; //stockage nom de confédération
+
+        //condition pour lire les caractère d'une ligne jusqu'a un saut de ligne
+        if (sscanf(tab, "%d %[^\n]", &nb_equipes, confederation) == 2) {
+
+            //boucle d'itèration de 0 jusqu'au nombre d'éequipe dans une confédération
+            for (int i = 0; i < nb_equipes; ++i) {
+                t_equipe equipe; //srockage des informations de l'équipe
+
+                //lecture des du nom, du id, de la classification et du groupe d'une équipe à partir du fichier
+                if(fscanf(fichier, "%s %s %d %c", equipe.nom, equipe.id, &equipe.clas,
+                          &equipe.groupe) == 4) {
+
+                    //calcul l'index du groupe en soustrayant 'A'(65) du groupe de l'équipe
+                    int index_grp = equipe.groupe - 'A';
+                    //utilisation de l'index pour accéder au tableau de groupe dans la structure wc
+                    t_groupe *groupe = &wc->grp[index_grp];
+
+                    //condition qui vérifie si le groupe est plein et si besoin de redimensionner
+                    if (groupe->nb_eqp == groupe->cap) {
+
+                        //si la capacité actuelle est à zero, initialiser à 1, sinon doubler la capacité
+                        int nv_capacite = groupe->cap == 0 ? 1 : groupe->cap *2;
+                        t_equipe *nouvelles_eqp = realloc(groupe->eqp, nv_capacite *sizeof(t_equipe));
+
+                        //condition qui vérifie si l'allocation est réussie.
+                        if(!nouvelles_eqp){
+                            //message d'erreur
+                            printf("Erreur lors de l'allocation de la memoire!\n");
+                            fclose(fichier);//fermeture fichier
+                            return;
+                        }
+                        // pointeur vers le nouvel emplcaement en mémoire du tableau
+                        groupe->eqp = nouvelles_eqp;
+                        //nouvelle capacité du tableau d'équipes
+                        groupe->cap = nv_capacite;
+                    }
+                    //ajout de l'équipe au groupe
+                    groupe->eqp[groupe->nb_eqp++]=equipe;
+                    totalEqpLues ++; //ajoute 1 au compteur de nombre d'équipes total
+                }
+            }
+        }
+    }
+
+    fclose(fichier); //fermeture fichier
+
+    //condition qui vérifie s'il y a bien 32 équipes au total
+    if (totalEqpLues != 32){
+        //affichage de message d'erreur
+        printf("Erreur ! Le nombre totoal d'equipes lues n'est pas egale a 32.\n");
+    }
+}
 
 
 void test_lire_equipes() {
